@@ -33,9 +33,9 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-    this.sprite = 'images/char-boy.png';
+    this.sprite = 'images/char-horn-girl.png';
     this.x = 200;
-    this.y = 350;
+    this.y = 400;
 };
 
 Player.prototype.update = function(dt) {
@@ -46,11 +46,18 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
+Player.prototype.reset = function() {
+    this.x = 200;
+    this.y = 400;
+}
+
 Player.prototype.handleInput = function(direction) {
     switch (direction) {
         case "up":
-            if (this.y >= 50) {
+            if (this.y > 50) {
                 this.y -= 50;
+            } else if (this.y = 50) {
+                this.reset();
             }
             break;
         case "down":
