@@ -79,7 +79,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -95,6 +95,20 @@ var Engine = (function(global) {
         });
         player.update();
     }
+
+
+    /* This is called by the update function and loops through all of the
+     * objects in the allEnemies array as defined in app.js. If any of them
+     *  overlap with the player, it resets the player.
+    */
+   function checkCollisions() {
+        allEnemies.forEach(function(enemy) {
+            if ( (player.y === enemy.y) && (player.x >= enemy.x-0.5) && (player.x <= enemy.x+0.5) ) {
+              player.reset();
+              return;
+            }
+        });
+   }
 
     /* This function initially draws the "game level", it will then call
      * the renderEntities function. Remember, this function is called every

@@ -38,8 +38,8 @@ var Player = function() {
     this.y = 400;
 };
 
-Player.prototype.update = function(dt) {
-    // TO DO: multiply any movement by the dt parameter
+Player.prototype.update = function() {
+
 };
 
 Player.prototype.render = function() {
