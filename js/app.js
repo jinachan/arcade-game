@@ -56,7 +56,7 @@ Player.prototype.handleInput = function(direction) {
         case "up":
             if (this.y > 50) {
                 this.y -= 50;
-            } else if (this.y = 50) {
+            } else if (this.y <= 50) {
                 this.reset();
             }
             break;
