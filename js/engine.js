@@ -99,14 +99,15 @@
 
     /* This is called by the update function and loops through all of the
      * objects in the allEnemies array as defined in app.js. If any of them
-     *  overlap with the player, it resets the player.
+     * overlap with the player, it resets the player.
     */
    function checkCollisions() {
         allEnemies.forEach(function(enemy) {
-            if ( (player.y >= enemy.y - rowHeight)
-                && (player.y <= enemy.y + rowHeight)
-                && (player.x >= enemy.x - colWidth)
-                && (player.x <= enemy.x + colWidth) ) {
+            // colWidth and enemyHeight are defined in app.js
+            if ( (player.y >= enemy.y - (enemyHeight*0.75))
+                && (player.y <= enemy.y + (enemyHeight*0.75))
+                && (player.x >= enemy.x - (colWidth*0.75))
+                && (player.x <= enemy.x + (colWidth*0.75)) ) {
               player.reset();
               return;
             }
@@ -152,7 +153,7 @@
                  * we're using them over and over.
                  */
 
-                 // colWidth and rowHeight are defined in app.js
+                // colWidth and rowHeight are defined in app.js
                 ctx.drawImage(Resources.get(rowImages[row]), col * colWidth, row * rowHeight);
             }
         }
