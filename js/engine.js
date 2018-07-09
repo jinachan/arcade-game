@@ -100,7 +100,7 @@
     /* This is called by the update function and loops through all of the
      * objects in the allEnemies array as defined in app.js. If any of them
      * overlap with the player, it resets the player.
-    */
+     */
    function checkCollisions() {
         allEnemies.forEach(function(enemy) {
             // colWidth and enemyHeight are defined in app.js

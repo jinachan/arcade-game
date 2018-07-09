@@ -44,24 +44,32 @@ var Player = function() {
     this.sprite = 'images/char-horn-girl.png';
     this.x = playerStartCol * colWidth;
     this.y = playerStartRow * rowHeight;
-};
-
-Player.prototype.update = function() {
-    // Check for win condition
-    /* if (this.y == 0) {
-        alert("You win!");
-        this.reset;
-    } */
-};
-
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    this.moving = false;
+    this.won = false;
 };
 
 Player.prototype.reset = function() {
     this.x = playerStartCol * colWidth;
     this.y = playerStartRow * rowHeight;
+    this.moving = false;
+    this.won = false;
 }
+
+Player.prototype.update = function() {
+    // Collision checking happens in engine.js
+    // Credit: Checking for the win condition is based on Rodrick's video
+    // (https://zoom.us/recording/play/aulotDlzKFegQFIJTaTzKgWvNkVsYtlwO454vL1UPE1Cm6lOUBQCtfVurPOIAGAS?startTime=1529542978000)
+    if ( (this.y <= 0) && !this.won && !this.moving ) {
+        alert("You win!");
+        this.won = true;
+        this.reset();
+    }
+};
+
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    this.moving = false;
+};
 
 Player.prototype.handleInput = function(direction) {
     switch (direction) {
@@ -86,13 +94,13 @@ Player.prototype.handleInput = function(direction) {
             }
             break;
     }
+    this.moving = true;
 };
 
 var allEnemies = [];
 // Create enemy objects and add to allEnemies array
 function createEnemies() {
     for (let i=0; i <= 2; i++) {
-        console.log( (enemyHeight + (rowHeight*i)) );
         allEnemies.push( new Enemy(enemyHeight + (rowHeight*i)) );
     }
 }
