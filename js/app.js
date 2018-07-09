@@ -1,5 +1,11 @@
+// Constants
+const colWidth = 101;
+const rowHeight = 83;
+const playerStartCol = 2;
+const playerStartRow = 5;
+
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(yPos) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -7,7 +13,7 @@ var Enemy = function() {
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
     this.x = 10;
-    this.y = 100;
+    this.y = yPos;
     this.speed = 30;
 };
 
@@ -34,12 +40,16 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 var Player = function() {
     this.sprite = 'images/char-horn-girl.png';
-    this.x = 200;
-    this.y = 400;
+    this.x = playerStartCol * colWidth;
+    this.y = playerStartRow * rowHeight;
 };
 
 Player.prototype.update = function() {
-
+    // Check for win condition
+    /* if (this.y == 0) {
+        alert("You win!");
+        this.reset;
+    } */
 };
 
 Player.prototype.render = function() {
@@ -47,41 +57,48 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.reset = function() {
-    this.x = 200;
-    this.y = 400;
+    this.x = playerStartCol * colWidth;
+    this.y = playerStartRow * rowHeight;
 }
 
 Player.prototype.handleInput = function(direction) {
     switch (direction) {
         case "up":
-            if (this.y > 50) {
-                this.y -= 50;
-            } else if (this.y <= 50) {
-                this.reset();
+            if (this.y >= rowHeight) {
+                this.y -= rowHeight;
             }
             break;
         case "down":
-            if (this.y <= 400) {
-                this.y += 50;
+            if (this.y <= 4 * rowHeight) {
+                this.y += rowHeight;
             }
             break;
         case "left":
-            if (this.x >= 50) {
-                this.x -= 50;
+            if (this.x >= colWidth) {
+                this.x -= colWidth;
             }
             break;
         case "right":
-            if (this.x <= 375) {
-                this.x += 50;
+            if (this.x <= 3 * colWidth) {
+                this.x += colWidth;
             }
             break;
     }
 };
 
+var allEnemies = [];
+// Create enemy objects and add to allEnemies array
+function createEnemies() {
+    for (let i=63; i <= 235; i+=rowHeight) {
+        allEnemies.push(new Enemy(i));
+    }
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
+createEnemies();
+
 // Place the player object in a variable called player
-var allEnemies = [new Enemy()];
 var player = new Player();
 // Note: unable to instantiate enemies and player using Object.create
 // Throws an error: "Uncaught TypeError: enemy.update is not a function at engine.js:94"

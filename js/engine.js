@@ -13,7 +13,7 @@
  * writing app.js a little simpler to work with.
  */
 
-var Engine = (function(global) {
+ var Engine = (function(global) {
     /* Predefine the variables we'll be using within this scope,
      * create the canvas element, grab the 2D context for that canvas
      * set the canvas elements height/width and add it to the DOM.
@@ -103,7 +103,10 @@ var Engine = (function(global) {
     */
    function checkCollisions() {
         allEnemies.forEach(function(enemy) {
-            if ( (player.y === enemy.y) && (player.x >= enemy.x-0.5) && (player.x <= enemy.x+0.5) ) {
+            if ( (player.y >= enemy.y - rowHeight)
+                && (player.y <= enemy.y + rowHeight)
+                && (player.x >= enemy.x - colWidth)
+                && (player.x <= enemy.x + colWidth) ) {
               player.reset();
               return;
             }
@@ -148,7 +151,9 @@ var Engine = (function(global) {
                  * so that we get the benefits of caching these images, since
                  * we're using them over and over.
                  */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+
+                 // colWidth and rowHeight are defined in app.js
+                ctx.drawImage(Resources.get(rowImages[row]), col * colWidth, row * rowHeight);
             }
         }
 
