@@ -14,7 +14,7 @@ var Enemy = function(yPos) {
     this.sprite = 'images/enemy-bug.png';
     this.x = 10;
     this.y = yPos;
-    this.speed = 30;
+    this.speed = (1.0 + Math.random()) * 30;
 };
 
 // Update the enemy's position, required method for game
@@ -25,7 +25,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     // Enemies only move sideways, so we only need to adjust the x value
     this.x += (dt * this.speed);
-    if (this.x > 500) {
+    if (this.x > 5 * colWidth) {
         this.x = 0;
     }
 };
