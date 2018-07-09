@@ -1,10 +1,12 @@
 // Constants
 const colWidth = 101;
 const rowHeight = 83;
+const enemyHeight = 63;
 const playerStartCol = 2;
 const playerStartRow = 5;
 
 // Enemies our player must avoid
+// Parameters: yPos, a y-axis value in engine.js coordinate system
 var Enemy = function(yPos) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
@@ -89,8 +91,9 @@ Player.prototype.handleInput = function(direction) {
 var allEnemies = [];
 // Create enemy objects and add to allEnemies array
 function createEnemies() {
-    for (let i=63; i <= 235; i+=rowHeight) {
-        allEnemies.push(new Enemy(i));
+    for (let i=0; i <= 2; i++) {
+        console.log( (enemyHeight + (rowHeight*i)) );
+        allEnemies.push( new Enemy(enemyHeight + (rowHeight*i)) );
     }
 }
 
